@@ -1,8 +1,8 @@
 export interface Forecast {
     city: String;
-    temperature: Number;
-    summary: String;
     lastUpdated: String;
+    summary: String;
+    temperature: Number;
     date: String;
     humidity: Number;
     windValue: Number;
@@ -13,6 +13,7 @@ export interface Forecast {
 }
 
 export interface DayOfWeek {
-    dayTemperature: Number;
-    nightTemperature: Number;
+    name: String;
+    highTemp: Number;
+    lowTemp: Number;
 }

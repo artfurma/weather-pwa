@@ -12,6 +12,8 @@
   </button>
 </mat-toolbar>
 <div class="weather-cards-container">
-  <app-weather-card city="Gdansk"></app-weather-card>
+  <div *ngFor="let forecast of forecasts">
+    <app-weather-card [forecast]="forecast"></app-weather-card>
+  </div>
 </div>
 <router-outlet></router-outlet>

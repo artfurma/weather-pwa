@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Forecast } from '../shared/forecast';
 
 @Component({
   selector: 'app-weather-card',
@@ -8,7 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class WeatherCardComponent implements OnInit {
 
   @Input() city: String;
-  
+  @Input() forecast: Forecast;
+
   constructor() { }
 
   ngOnInit() {
