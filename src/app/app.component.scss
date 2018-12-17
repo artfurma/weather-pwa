@@ -1,5 +1,9 @@
 mat-toolbar {
   margin-bottom: 32px;
+
+  .logo {
+    display: inline;
+  }
 }
 
 .toolbar-space-filler {

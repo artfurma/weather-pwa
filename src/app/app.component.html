@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
-  <div>
-      <mat-icon>weather</mat-icon>
-    <span>Weather PWA App</span>
+  <div class="logo">
+    <img src="/assets/images/icons/icon-32x32.png" />
+    <span>Weather PWA</span>
   </div>
   <span class="toolbar-space-filler"></span>
   <button mat-icon-button>
@@ -12,5 +12,6 @@
   </button>
 </mat-toolbar>
 <div class="weather-cards-container">
+  <app-weather-card city="Gdansk"></app-weather-card>
 </div>
 <router-outlet></router-outlet>
