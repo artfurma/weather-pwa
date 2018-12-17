@@ -13,21 +13,25 @@ mat-card-subtitle {
 }
 
 .weather-forecast {
-  padding: 5px;
   font-weight: 200;
+
+  .icon {
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
 
   .current {
     .visual {
       font-size: 4em;
 
       .icon {
-        img {
-          width: 128px;
-          height: 128px;
-        }
+        width: 128px;
+        height: 128px;
       }
 
       .temperature {
+        font-weight: 400;
+
         .scale {
           font-size: 0.5em;
           vertical-align: super;
@@ -43,5 +47,83 @@ mat-card-subtitle {
         margin-left: 5px;
       }
     }
+  }
+
+  .future {
+    padding-left: 20px;
+    padding-right: 20px;
+
+    .oneday {
+      text-align: center;
+
+      .date {
+        font-size: 1.5em;
+      }
+
+      .icon {
+        width: 64px;
+        height: 64px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+
+      .temps {
+        place-content: center center;
+
+        .temp-hight {
+          display: inline-block;
+        }
+
+        .temp-low {
+          color: #888;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .icon.clear-day {
+    background-image: url("/assets/images/clear.png");
+  }
+
+  .icon.clear-night {
+    background-image: url("/assets/images/clear.png");
+  }
+
+  .icon.rain {
+    background-image: url("/assets/images/rain.png");
+  }
+
+  .icon.snow {
+    background-image: url("/assets/images/snow.png");
+  }
+
+  .icon.sleet {
+    background-image: url("/assets/images/sleet.png");
+  }
+
+  .icon.windy {
+    background-image: url("/assets/images/wind.png");
+  }
+
+  .icon.fog {
+    background-image: url("/assets/images/fog.png");
+  }
+
+  .icon.cloudy {
+    background-image: url("/assets/images/cloudy.png");
+  }
+
+  .icon.partly-cloudy-day {
+    background-image: url("/assets/images/partly-cloudy.png");
+  }
+
+  .icon.partly-cloudy-night {
+    background-image: url("/assets/images/partly-cloudy.png");
+  }
+
+  .icon.thunderstorms {
+    background-image: url("/assets/images/thunderstorm.png");
   }
 }
