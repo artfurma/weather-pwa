@@ -71,13 +71,16 @@ mat-card-subtitle {
       .temps {
         place-content: center center;
 
-        .temp-hight {
+        .temp-high {
           display: inline-block;
+          font-size: 1.25em;
         }
 
         .temp-low {
           color: #888;
           display: inline-block;
+          margin-left: 5px;
+          font-size: 1.25em;
         }
       }
     }
