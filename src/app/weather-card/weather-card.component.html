@@ -1,9 +1,32 @@
 <mat-card>
   <mat-card-title>{{city}}</mat-card-title>
   <mat-card-subtitle>
-    <span>Mon, 17 Dec 2018 09:00 AM EST</span>
+    <span>Mon, 17 Dec 2018 09:00 AM EST<br /><span class="summary">Cloudy</span></span>
   </mat-card-subtitle>
-  <mat-card-content>
-    
+  <mat-card-content class="weather-forecast">
+    <div class="current" fxLayout="row">
+      <div class="visual" fxFlex="50%">
+        <div fxLayout="row">
+          <div class="icon"><img src="/assets/images/cloudy.png" /></div>
+          <div class="temperature">
+            <span class="value">69</span><span class="scale">°C</span>
+          </div>
+        </div>
+      </div>
+      <div class="details" fxFlex="50%">
+        <div fxLayout="row">
+          <span class="key">Humidity:</span><span class="value">56%</span>
+        </div>
+        <div fxLayout="row">
+          <span class="key">Wind:</span><span class="value">56 kmph 195°</span>
+        </div>
+        <div fxLayout="row">
+          <span class="key">Sunrise:</span><span class="value">5:43 am</span>
+        </div>
+        <div fxLayout="row">
+          <span class="key">Sunset:</span><span class="value">8:21 pm</span>
+        </div>
+      </div>
+    </div>
   </mat-card-content>
 </mat-card>

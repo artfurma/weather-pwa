@@ -1,0 +1,47 @@
+mat-card-title {
+  font-size: 2em;
+  font-weight: 200;
+}
+
+mat-card-subtitle {
+  font-weight: 200;
+}
+
+.summary {
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.weather-forecast {
+  padding: 5px;
+  font-weight: 200;
+
+  .current {
+    .visual {
+      font-size: 4em;
+
+      .icon {
+        img {
+          width: 128px;
+          height: 128px;
+        }
+      }
+
+      .temperature {
+        .scale {
+          font-size: 0.5em;
+          vertical-align: super;
+        }
+      }
+    }
+
+    .details {
+      font-size: 1.5em;
+
+      .value {
+        font-weight: 400;
+        margin-left: 5px;
+      }
+    }
+  }
+}
