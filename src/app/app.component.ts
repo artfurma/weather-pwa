@@ -65,28 +65,105 @@ export class AppComponent {
     });
   }
 
+  getForecast(city: string) {
+    // TODO: Add cache logic here
+
+    this.weatherService.getForecastByCityName(city).subscribe((data: any) => {
+      if (data) {
+        const results = data.query.results;
+        const woeidPattern = /\d+/g;
+        const woeid = results.channel.link.match(woeidPattern).toString();
+        results.key = woeid;
+        results.label = results.channel.title.replace('Yahoo! Weather - ', '');
+        results.created = data.query.created;
+        this.upsertWeatherCard(results);
+      }
+    });
+  }
+
   addForecast(city: string): void {
     this.getForecast(city);
   }
 
   refreshForecasts(): void {
-    this.forecasts.forEach((forecast: Weather) => this.updateForecast(forecast));
+    this.forecasts.forEach((forecast: Weather) => this.getForecast(forecast.label));
   }
 
-  updateForecast(forecast: Weather): void {
-    // this.weatherService.getForecast(forecast.key)
-  }
+  upsertWeatherCard(data: any): void {
+    const weatherCard = this.forecasts.find(forecast => forecast.key === data.key);
+    if (!weatherCard) {
+      const newCard: Weather = {
+        key: data.key,
+        label: data.label,
+        created: data.created,
+        channel: {
+          astronomy: {
+            sunrise: data.channel.astronomy.sunrise,
+            sunset: data.channel.astronomy.sunset,
+          },
+          item: {
+            condition: {
+              text: data.channel.item.condition.text,
+              date: data.channel.item.condition.date,
+              temp: data.channel.item.condition.temp,
+              code: data.channel.item.condition.code,
+            },
+            forecast: [
+              {
+                code: data.channel.item.forecast[0].code,
+                high: data.channel.item.forecast[0].high,
+                low: data.channel.item.forecast[0].low,
+              },
+              {
+                code: data.channel.item.forecast[1].code,
+                high: data.channel.item.forecast[1].high,
+                low: data.channel.item.forecast[1].low,
+              },
+              {
+                code: data.channel.item.forecast[2].code,
+                high: data.channel.item.forecast[2].high,
+                low: data.channel.item.forecast[2].low,
+              },
+              {
+                code: data.channel.item.forecast[3].code,
+                high: data.channel.item.forecast[3].high,
+                low: data.channel.item.forecast[3].low,
+              },
+              {
+                code: data.channel.item.forecast[4].code,
+                high: data.channel.item.forecast[4].high,
+                low: data.channel.item.forecast[4].low,
+              },
+              {
+                code: data.channel.item.forecast[5].code,
+                high: data.channel.item.forecast[5].high,
+                low: data.channel.item.forecast[5].low,
+              },
+              {
+                code: data.channel.item.forecast[6].code,
+                high: data.channel.item.forecast[6].high,
+                low: data.channel.item.forecast[6].low,
+              },
+            ]
+          },
+          atmosphere: {
+            humidity: data.channel.atmosphere.humidity
+          },
+          wind: {
+            speed: data.channel.wind.speed,
+            direction: data.channel.wind.direction
+          }
+        }
+      };
+      this.forecasts.push(newCard);
+    }
+    console.log(weatherCard);
+    // const cardLastUpdated = new Date(weatherCard.created);
 
-  getForecast(city: string) {
-    // TODO: Add cache logic here
+    // if (cardLastUpdated) {
+    //   const dataLastUpdated = new Date(data.created);
 
-    let weather: Weather;
-    this.weatherService.getForecastByCityName(city).subscribe(data => {
-      // weather = {
-      //   key = 
-      // }
-      console.log(data);
-    });
+    // }
   }
 }
 

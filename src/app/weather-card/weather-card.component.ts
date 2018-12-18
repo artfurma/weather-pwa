@@ -42,8 +42,7 @@ export class WeatherCardComponent implements OnInit {
 
   getDayOfWeek(index: number) {
     if (this.weather.channel.item.forecast[index]) {
-      const dayNumber = new Date(this.current.date).getDay();
-      console.log(dayNumber);
+      const dayNumber = new Date().getDay();
       return this.daysOfWeek[(index + dayNumber) % 7];
     }
   }
