@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Forecast } from './shared/forecast';
+import { Weather } from './shared/weather';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddForecastDialogData } from './shared/add-forecast-dialog-data';
-import { WeatherService } from './weather.service';
+import { WeatherService } from './shared/weather.service';
 
 @Component({
   selector: 'app-root',
@@ -12,55 +12,43 @@ import { WeatherService } from './weather.service';
 export class AppComponent {
   title = 'weather-pwa';
   isLoading: Boolean = false;
-  forecasts: Forecast[] = [
+  weatherForecasts: Weather[];
+
+  forecasts: Weather[] = [
     {
-      city: 'Gdansk',
-      temperature: 68,
-      summary: 'windy',
-      lastUpdated: '2day',
-      date: 'Mon',
-      humidity: 100,
-      windValue: 99,
-      windDirection: 360,
-      sunrise: 'nigdy',
-      sunset: 'xD',
-      futureDays: [
-        {
-          name: 'Tue',
-          highTemp: 99,
-          lowTemp: 11
+      key: '2459115',
+      label: 'New York, NY',
+      created: '2016-07-22T01:00:00Z',
+      channel: {
+        astronomy: {
+          sunrise: '5:43 am',
+          sunset: '8:21 pm'
         },
-        {
-          name: 'Tue',
-          highTemp: 99,
-          lowTemp: 11
+        item: {
+          condition: {
+            text: 'Windy',
+            date: 'Thu, 21 Jul 2016 09:00 PM EDT',
+            temp: 56,
+            code: 24
+          },
+          forecast: [
+            { code: 44, high: 86, low: 70 },
+            { code: 44, high: 94, low: 73 },
+            { code: 4, high: 95, low: 78 },
+            { code: 24, high: 75, low: 89 },
+            { code: 24, high: 89, low: 77 },
+            { code: 44, high: 92, low: 79 },
+            { code: 44, high: 89, low: 77 }
+          ]
         },
-        {
-          name: 'Tue',
-          highTemp: 99,
-          lowTemp: 11
+        atmosphere: {
+          humidity: 56
         },
-        {
-          name: 'Tue',
-          highTemp: 99,
-          lowTemp: 11
-        },
-        {
-          name: 'Tue',
-          highTemp: 99,
-          lowTemp: 11
-        },
-        {
-          name: 'Tue',
-          highTemp: 99,
-          lowTemp: 11
-        },
-        {
-          name: 'Tue',
-          highTemp: 99,
-          lowTemp: 11
+        wind: {
+          speed: 25,
+          direction: 195
         }
-      ]
+      }
     }
   ];
 
@@ -78,16 +66,27 @@ export class AppComponent {
   }
 
   addForecast(city: string): void {
-    // TODO: after adding forecast
-    console.log(city);
+    this.getForecast(city);
   }
 
   refreshForecasts(): void {
-    this.forecasts.forEach((forecast: Forecast) => this.getForecast(forecast));
+    this.forecasts.forEach((forecast: Weather) => this.updateForecast(forecast));
   }
 
-  getForecast(forecast: Forecast): void {
-    this.weatherService.getForecast(forecast.key)
+  updateForecast(forecast: Weather): void {
+    // this.weatherService.getForecast(forecast.key)
+  }
+
+  getForecast(city: string) {
+    // TODO: Add cache logic here
+
+    let weather: Weather;
+    this.weatherService.getForecastByCityName(city).subscribe(data => {
+      // weather = {
+      //   key = 
+      // }
+      console.log(data);
+    });
   }
 }
 

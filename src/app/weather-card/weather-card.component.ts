@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Forecast } from '../shared/forecast';
+import { Weather, Item } from '../shared/weather';
+import { WeatherCodeParserService } from '../shared/weather-code-parser.service';
 
 @Component({
   selector: 'app-weather-card',
@@ -9,12 +10,19 @@ import { Forecast } from '../shared/forecast';
 export class WeatherCardComponent implements OnInit {
 
   @Input() city: String;
-  @Input() forecast: Forecast;
+  @Input() weather: Weather;
 
+  lastUpdated: string;
   daysOfWeek: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  constructor() { }
+
+  constructor(private codeParser: WeatherCodeParserService) { }
 
   ngOnInit() {
+    // TODO: Parse weather codes to icons
+    this.lastUpdated = new Date(this.weather.created).toLocaleString();
   }
 
+  getWeatherClass(code: number): string {
+    return `icon ${this.codeParser.parseCode(code)}`;
+  }
 }

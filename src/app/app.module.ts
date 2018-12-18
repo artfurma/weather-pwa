@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent, AddForecastDialogComponent } from './app.component';
 import { WeatherCardComponent } from './weather-card/weather-card.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   entryComponents: [AddForecastDialogComponent],

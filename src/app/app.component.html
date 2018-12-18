@@ -13,7 +13,7 @@
 </mat-toolbar>
 <div class="weather-cards-container" *ngIf="!isLoading">
   <div *ngFor="let forecast of forecasts">
-    <app-weather-card [forecast]="forecast"></app-weather-card>
+    <app-weather-card [weather]="forecast"></app-weather-card>
   </div>
 </div>
 <div class="loader" *ngIf="isLoading">
