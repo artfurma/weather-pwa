@@ -5,22 +5,27 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { AppComponent } from './app.component';
+import { AppComponent, AddForecastDialogComponent } from './app.component';
 import { WeatherCardComponent } from './weather-card/weather-card.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WeatherCardComponent
+    WeatherCardComponent,
+    AddForecastDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
+  entryComponents: [AddForecastDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

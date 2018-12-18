@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Forecast } from './shared/forecast';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { AddForecastDialogData } from './shared/add-forecast-dialog-data';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,7 @@ export class AppComponent {
     {
       city: 'Gdansk',
       temperature: 68,
-      summary: 'pizga',
+      summary: 'windy',
       lastUpdated: '2day',
       date: 'Mon',
       humidity: 100,
@@ -60,4 +62,43 @@ export class AppComponent {
       ]
     }
   ];
+
+  constructor(public dialog: MatDialog) { }
+
+  openAddForecastDialog(): void {
+    const dialogRef = this.dialog.open(AddForecastDialogComponent, {
+      width: '250px',
+      data: { city: '' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.addForecast(result);
+    });
+  }
+
+  addForecast(city: string): void {
+    // TODO: after adding forecast
+    console.log(city);
+  }
+
+  refreshForecasts(): void {
+
+  }
+}
+
+@Component({
+  templateUrl: './add-forecast-dialog.component.html'
+})
+export class AddForecastDialogComponent implements OnInit {
+
+  constructor(
+    public dialogRef: MatDialogRef<AddForecastDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: AddForecastDialogData) { }
+
+  ngOnInit() {
+  }
+
+  onCancelClick(): void {
+    this.dialogRef.close();
+  }
 }
