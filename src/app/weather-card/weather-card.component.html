@@ -1,15 +1,15 @@
 <mat-card>
   <mat-card-title>{{weather.label}}</mat-card-title>
   <mat-card-subtitle>
-    <span>{{lastUpdated}}<br /><span class="summary">{{weather.channel.item.condition.text}}</span></span>
+    <span>{{current.date}}<br /><span class="summary">{{current.text}}</span></span>
   </mat-card-subtitle>
   <mat-card-content class="weather-forecast">
     <div class="current" fxLayout="row">
       <div class="visual" fxFlex="50%">
         <div fxLayout="row">
-          <div [ngClass]="getWeatherClass(weather.channel.item.condition.code)"></div>
+          <div [ngClass]="getWeatherClass(current.code)"></div>
           <div class="temperature">
-            <span class="value">{{weather.channel.item.condition.temp}}</span><span class="scale">°C</span>
+            <span class="value">{{currentTemp}}</span><span class="scale">°C</span>
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
         </div>
         <div fxLayout="row">
           <span class="key">Wind:</span>
-          <span class="value">{{weather.channel.wind.speed}} kmph {{weather.channel.wind.direction}}°</span>
+          <span class="value">{{windSpeed}} kmph {{weather.channel.wind.direction}}°</span>
         </div>
         <div fxLayout="row">
           <span class="key">Sunrise:</span><span class="value">{{weather.channel.astronomy.sunrise}}</span>
@@ -30,15 +30,15 @@
       </div>
     </div>
     <div class="future" fxLayout="row" fxLayoutAlign="space-around center">
-      <div class="oneday" *ngFor="let futureDay of weather.channel.item.forecast">
-        <!-- <div class="date">{{item.name}}</div> TODO -->
+      <div class="oneday" *ngFor="let futureDay of weather.channel.item.forecast; let i = index">
+        <div class="date">{{getDayOfWeek(i)}}</div>
         <div [ngClass]="getWeatherClass(futureDay.code)"></div>
         <div fxLayout="row" class="temps">
           <div class="temp-high">
-            <span class="value">{{futureDay.high}}</span>°
+            <span class="value">{{getCelsiusTemp(futureDay.high)}}</span>°
           </div>
           <div class="temp-low">
-            <span class="value">{{futureDay.low}}</span>°
+            <span class="value">{{getCelsiusTemp(futureDay.low)}}</span>°
           </div>
         </div>
       </div>
