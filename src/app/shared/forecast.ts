@@ -1,4 +1,5 @@
 export interface Forecast {
+    key?: Number;
     city: String;
     lastUpdated: String;
     summary: String;

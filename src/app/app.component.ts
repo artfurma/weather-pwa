@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Forecast } from './shared/forecast';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddForecastDialogData } from './shared/add-forecast-dialog-data';
+import { WeatherService } from './weather.service';
 
 @Component({
   selector: 'app-root',
@@ -63,7 +64,7 @@ export class AppComponent {
     }
   ];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private weatherService: WeatherService) { }
 
   openAddForecastDialog(): void {
     const dialogRef = this.dialog.open(AddForecastDialogComponent, {
@@ -82,7 +83,11 @@ export class AppComponent {
   }
 
   refreshForecasts(): void {
-    // this.forecasts.forEach((forecast: Forecast) => )
+    this.forecasts.forEach((forecast: Forecast) => this.getForecast(forecast));
+  }
+
+  getForecast(forecast: Forecast): void {
+    this.weatherService.getForecast(forecast.key)
   }
 }
 
