@@ -10,7 +10,7 @@ import { AddForecastDialogData } from './shared/add-forecast-dialog-data';
 })
 export class AppComponent {
   title = 'weather-pwa';
-
+  isLoading: Boolean = false;
   forecasts: Forecast[] = [
     {
       city: 'Gdansk',
@@ -82,7 +82,7 @@ export class AppComponent {
   }
 
   refreshForecasts(): void {
-
+    // this.forecasts.forEach((forecast: Forecast) => )
   }
 }
 

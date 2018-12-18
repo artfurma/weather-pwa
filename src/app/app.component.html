@@ -4,21 +4,21 @@
     <span>GeekWeeks PWA</span>
   </div>
   <span class="toolbar-space-filler"></span>
-  <button mat-icon-button>
+  <button mat-icon-button (click)="refreshForecasts()">
     <mat-icon>refresh</mat-icon>
   </button>
   <button mat-icon-button (click)="openAddForecastDialog()">
     <mat-icon>add</mat-icon>
   </button>
 </mat-toolbar>
-<div class="weather-cards-container">
+<div class="weather-cards-container" *ngIf="!isLoading">
   <div *ngFor="let forecast of forecasts">
     <app-weather-card [forecast]="forecast"></app-weather-card>
   </div>
 </div>
-<div class="loader">
-    <svg viewBox="0 0 32 32" width="32" height="32">
-      <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
-    </svg>
-  </div>
+<div class="loader" *ngIf="isLoading">
+  <svg viewBox="0 0 32 32" width="32" height="32">
+    <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+  </svg>
+</div>
 <router-outlet></router-outlet>

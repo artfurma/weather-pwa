@@ -11,6 +11,7 @@ export class WeatherCardComponent implements OnInit {
   @Input() city: String;
   @Input() forecast: Forecast;
 
+  daysOfWeek: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   constructor() { }
 
   ngOnInit() {
