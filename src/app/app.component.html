@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
   <div class="logo">
     <img src="/assets/images/icons/icon-32x32.png" />
-    <span>Weather PWA</span>
+    <span>GeekWeeks PWA</span>
   </div>
   <span class="toolbar-space-filler"></span>
   <button mat-icon-button>
@@ -16,4 +16,9 @@
     <app-weather-card [forecast]="forecast"></app-weather-card>
   </div>
 </div>
+<div class="loader">
+    <svg viewBox="0 0 32 32" width="32" height="32">
+      <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+    </svg>
+  </div>
 <router-outlet></router-outlet>
