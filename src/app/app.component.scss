@@ -1,5 +1,8 @@
 mat-toolbar {
   margin-bottom: 32px;
+  top: 0;
+  position: sticky;
+  z-index: 1000;
 
   .logo {
     display: inline;
