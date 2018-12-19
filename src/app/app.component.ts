@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
   constructor(public dialog: MatDialog, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    localForage.getItem('selectedCities').then(cities => {
+    localForage.getItem('selectedCities').then((cities: string) => {
       console.log(cities);
       if (cities) {
         this.selectedCities = JSON.parse(cities);
