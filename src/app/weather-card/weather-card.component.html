@@ -8,12 +8,12 @@
       <div class="visual" fxFlex="50%">
         <div fxLayout="row">
           <div [ngClass]="getWeatherClass(current.code)"></div>
-          <div class="temperature">
+          <div class="temperature" fxFlex>
             <span class="value">{{currentTemp}}</span><span class="scale">°C</span>
           </div>
         </div>
       </div>
-      <div class="details" fxFlex="50%">
+      <div class="details" fxFlex>
         <div fxLayout="row">
           <span class="key">Humidity:</span><span class="value">{{weather.channel.atmosphere.humidity}}%</span>
         </div>
@@ -33,11 +33,11 @@
       <div class="oneday" *ngFor="let futureDay of weather.channel.item.forecast; let i = index">
         <div class="date">{{getDayOfWeek(i)}}</div>
         <div [ngClass]="getWeatherClass(futureDay.code)"></div>
-        <div fxLayout="row" class="temps">
-          <div class="temp-high">
+        <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column" class="temps">
+          <div class="temp-high" fxFlex>
             <span class="value">{{getCelsiusTemp(futureDay.high)}}</span>°
           </div>
-          <div class="temp-low">
+          <div class="temp-low" fxFlex>
             <span class="value">{{getCelsiusTemp(futureDay.low)}}</span>°
           </div>
         </div>

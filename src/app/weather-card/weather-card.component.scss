@@ -71,17 +71,11 @@ mat-card-subtitle {
 
       .temps {
         place-content: center center;
-
-        .temp-high {
-          display: inline-block;
-          font-size: 1.25em;
-        }
+        font-size: 1.25em;
 
         .temp-low {
           color: #888;
-          display: inline-block;
           margin-left: 5px;
-          font-size: 1.25em;
         }
       }
     }
@@ -129,5 +123,63 @@ mat-card-subtitle {
 
   .icon.thunderstorms {
     background-image: url("/assets/images/thunderstorm.png");
+  }
+}
+
+@media (max-width: 450px) {
+
+  .summary {
+    font-size: 1.25em;
+  }
+
+  .weather-forecast {
+    .current {
+      .visual {
+        font-size: 3em;
+        margin-left: 0;
+        
+        .icon {
+          width: 96px;
+          height: 96px;
+        }
+
+        .temperature {
+          font-weight: 400;
+          margin-left: 5px;
+  
+          .scale {
+            font-size: 0.5em;
+            vertical-align: super;
+          }
+        }
+      }
+
+      .details {
+        font-size: 0.9em;
+      }
+    }
+
+    .future {
+      padding-left: 10px;
+      padding-right: 10px;
+      .oneday {
+        .date {
+          font-size: 1em;
+        }
+
+        .icon {
+          width: 32px;
+          height: 32px;
+        }
+
+        .temps {
+          font-size: 1em;
+
+          .temp-low {
+            margin-left: 0;
+          }
+        }
+      }
+    }
   }
 }
