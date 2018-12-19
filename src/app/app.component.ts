@@ -3,56 +3,76 @@ import { Weather } from './shared/weather';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddForecastDialogData } from './shared/add-forecast-dialog-data';
 import { WeatherService } from './shared/weather.service';
+import localForage from 'localforage';
 
+/** TODOs:
+ * - Improve getForecast to query forecasts by key and label (for better performance)
+ * - Guess user's location via IP lookup on startup (onInit)
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   title = 'weather-pwa';
   isLoading: Boolean = false;
-  weatherForecasts: Weather[];
-
-  forecasts: Weather[] = [
-    {
-      key: '2459115',
-      label: 'New York, NY, US',
-      created: '2016-07-22T01:00:00Z',
-      channel: {
-        astronomy: {
-          sunrise: '5:43 am',
-          sunset: '8:21 pm'
+  selectedCities = [];
+  initialForecast: Weather = {
+    key: '2459115',
+    label: 'New York, NY, US',
+    created: '2016-07-22T01:00:00Z',
+    channel: {
+      astronomy: {
+        sunrise: '5:43 am',
+        sunset: '8:21 pm'
+      },
+      item: {
+        condition: {
+          text: 'Windy',
+          date: 'Thu, 21 Jul 2016 09:00 PM EDT',
+          temp: 56,
+          code: 24
         },
-        item: {
-          condition: {
-            text: 'Windy',
-            date: 'Thu, 21 Jul 2016 09:00 PM EDT',
-            temp: 56,
-            code: 24
-          },
-          forecast: [
-            { code: 44, high: 86, low: 70 },
-            { code: 44, high: 94, low: 73 },
-            { code: 4, high: 95, low: 78 },
-            { code: 24, high: 75, low: 89 },
-            { code: 24, high: 89, low: 77 },
-            { code: 44, high: 92, low: 79 },
-            { code: 44, high: 89, low: 77 }
-          ]
-        },
-        atmosphere: {
-          humidity: 56
-        },
-        wind: {
-          speed: 25,
-          direction: 195
-        }
+        forecast: [
+          { code: 44, high: 86, low: 70 },
+          { code: 44, high: 94, low: 73 },
+          { code: 4, high: 95, low: 78 },
+          { code: 24, high: 75, low: 89 },
+          { code: 24, high: 89, low: 77 },
+          { code: 44, high: 92, low: 79 },
+          { code: 44, high: 89, low: 77 }
+        ]
+      },
+      atmosphere: {
+        humidity: 56
+      },
+      wind: {
+        speed: 25,
+        direction: 195
       }
     }
-  ];
+  };
+
+  forecasts: Weather[] = [];
 
   constructor(public dialog: MatDialog, private weatherService: WeatherService) { }
+
+  ngOnInit(): void {
+    localForage.getItem('selectedCities').then(cities => {
+      console.log(cities);
+      if (cities) {
+        this.selectedCities = JSON.parse(cities);
+        this.selectedCities.forEach(city => this.getForecast(city.label));
+      } else {
+        this.upsertWeatherCard(this.initialForecast);
+        this.selectedCities = [{ /*key: this.initialForecast.key, */label: this.initialForecast.label }];
+        this.saveSelectedCities();
+      }
+    });
+
+  }
 
   openAddForecastDialog(): void {
     const dialogRef = this.dialog.open(AddForecastDialogComponent, {
@@ -82,7 +102,12 @@ export class AppComponent {
   }
 
   addForecast(city: string): void {
+    if (!this.selectedCities) {
+      this.selectedCities = [];
+    }
     this.getForecast(city);
+    this.selectedCities.push({ label: city });
+    this.saveSelectedCities();
   }
 
   refreshForecasts(): void {
@@ -173,6 +198,11 @@ export class AppComponent {
       }
     };
     return weather;
+  }
+
+  saveSelectedCities(): void {
+    const selectedCities = JSON.stringify(this.selectedCities);
+    localForage.setItem('selectedCities', selectedCities);
   }
 }
 
