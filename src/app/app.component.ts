@@ -17,7 +17,7 @@ export class AppComponent {
   forecasts: Weather[] = [
     {
       key: '2459115',
-      label: 'New York, NY',
+      label: 'New York, NY, US',
       created: '2016-07-22T01:00:00Z',
       channel: {
         astronomy: {
@@ -90,80 +90,89 @@ export class AppComponent {
   }
 
   upsertWeatherCard(data: any): void {
-    const weatherCard = this.forecasts.find(forecast => forecast.key === data.key);
-    if (!weatherCard) {
-      const newCard: Weather = {
-        key: data.key,
-        label: data.label,
-        created: data.created,
-        channel: {
-          astronomy: {
-            sunrise: data.channel.astronomy.sunrise,
-            sunset: data.channel.astronomy.sunset,
-          },
-          item: {
-            condition: {
-              text: data.channel.item.condition.text,
-              date: data.channel.item.condition.date,
-              temp: data.channel.item.condition.temp,
-              code: data.channel.item.condition.code,
-            },
-            forecast: [
-              {
-                code: data.channel.item.forecast[0].code,
-                high: data.channel.item.forecast[0].high,
-                low: data.channel.item.forecast[0].low,
-              },
-              {
-                code: data.channel.item.forecast[1].code,
-                high: data.channel.item.forecast[1].high,
-                low: data.channel.item.forecast[1].low,
-              },
-              {
-                code: data.channel.item.forecast[2].code,
-                high: data.channel.item.forecast[2].high,
-                low: data.channel.item.forecast[2].low,
-              },
-              {
-                code: data.channel.item.forecast[3].code,
-                high: data.channel.item.forecast[3].high,
-                low: data.channel.item.forecast[3].low,
-              },
-              {
-                code: data.channel.item.forecast[4].code,
-                high: data.channel.item.forecast[4].high,
-                low: data.channel.item.forecast[4].low,
-              },
-              {
-                code: data.channel.item.forecast[5].code,
-                high: data.channel.item.forecast[5].high,
-                low: data.channel.item.forecast[5].low,
-              },
-              {
-                code: data.channel.item.forecast[6].code,
-                high: data.channel.item.forecast[6].high,
-                low: data.channel.item.forecast[6].low,
-              },
-            ]
-          },
-          atmosphere: {
-            humidity: data.channel.atmosphere.humidity
-          },
-          wind: {
-            speed: data.channel.wind.speed,
-            direction: data.channel.wind.direction
-          }
-        }
-      };
+    const weatherIndex = this.forecasts.findIndex(forecast => forecast.key === data.key);
+    if (weatherIndex === -1) {
+      const newCard = this.prepareWeatherObject(data);
       this.forecasts.push(newCard);
+      return;
     }
-    console.log(weatherCard);
-    // const cardLastUpdated = new Date(weatherCard.created);
 
-    // if (cardLastUpdated) {
-    //   const dataLastUpdated = new Date(data.created);
+    const dataLastUpdated = new Date(data.created);
+    const cardLastUpdated = new Date(this.forecasts[weatherIndex].created);
 
-    // }
+    if (dataLastUpdated.getTime() < cardLastUpdated.getTime()) {
+      return;
+    }
+
+    // Data fetched from the API is newer - update the forecast
+    this.forecasts[weatherIndex] = this.prepareWeatherObject(data);
+  }
+
+  prepareWeatherObject(data: any): Weather {
+    const weather: Weather = {
+      key: data.key,
+      label: data.label,
+      created: data.created,
+      channel: {
+        astronomy: {
+          sunrise: data.channel.astronomy.sunrise,
+          sunset: data.channel.astronomy.sunset,
+        },
+        item: {
+          condition: {
+            text: data.channel.item.condition.text,
+            date: data.channel.item.condition.date,
+            temp: data.channel.item.condition.temp,
+            code: data.channel.item.condition.code,
+          },
+          forecast: [
+            {
+              code: data.channel.item.forecast[0].code,
+              high: data.channel.item.forecast[0].high,
+              low: data.channel.item.forecast[0].low,
+            },
+            {
+              code: data.channel.item.forecast[1].code,
+              high: data.channel.item.forecast[1].high,
+              low: data.channel.item.forecast[1].low,
+            },
+            {
+              code: data.channel.item.forecast[2].code,
+              high: data.channel.item.forecast[2].high,
+              low: data.channel.item.forecast[2].low,
+            },
+            {
+              code: data.channel.item.forecast[3].code,
+              high: data.channel.item.forecast[3].high,
+              low: data.channel.item.forecast[3].low,
+            },
+            {
+              code: data.channel.item.forecast[4].code,
+              high: data.channel.item.forecast[4].high,
+              low: data.channel.item.forecast[4].low,
+            },
+            {
+              code: data.channel.item.forecast[5].code,
+              high: data.channel.item.forecast[5].high,
+              low: data.channel.item.forecast[5].low,
+            },
+            {
+              code: data.channel.item.forecast[6].code,
+              high: data.channel.item.forecast[6].high,
+              low: data.channel.item.forecast[6].low,
+            },
+          ]
+        },
+        atmosphere: {
+          humidity: data.channel.atmosphere.humidity
+        },
+        wind: {
+          speed: data.channel.wind.speed,
+          direction: data.channel.wind.direction
+        }
+      }
+    };
+    return weather;
   }
 }
 
