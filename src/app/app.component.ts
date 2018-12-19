@@ -3,7 +3,7 @@ import { Weather } from './shared/weather';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AddForecastDialogData } from './shared/add-forecast-dialog-data';
 import { WeatherService } from './shared/weather.service';
-import localForage from 'localforage';
+import * as localForage from 'localforage';
 
 /** TODOs:
  * - Improve getForecast to query forecasts by key and label (for better performance)
