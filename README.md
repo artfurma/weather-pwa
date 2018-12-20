@@ -9,7 +9,7 @@ Application is integrated with Angular CLI. To run it, first create a production
 ## Branches
 
 In case you want to create your own PWA from scratch, start with `work` branch. It contains a standard Angular web application, ready be converted into a PWA.
-If case you get lost, please check out branches `pwa-step-x` where x should be a number from 1 to 4. 
+If case you get lost, please check out branches `pwa-step-x` where x should be a number from `1 to 4`. 
 
 ## What's implemented
 
