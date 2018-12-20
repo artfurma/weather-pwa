@@ -14,7 +14,7 @@ If case you get lost, please check out branches `pwa-step-x` where x should be a
 ## What's implemented
 
 The most recent version is on the `master` branch. It supports:
-- Storing previously selected cities in IndexedDB (localForage)
+- Storing previously selected cities via IndexedDB (localForage)
 - Caching the app-shell by the Angular Service Worker
 - Intercepting requests to the YAHOO! Weather API and caching the results for further offline usage
 - Displaying "Add to home button" popup on mobile devices
